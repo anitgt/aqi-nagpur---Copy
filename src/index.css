@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* ── Dark mode (default) ─────────────────── */
+:root {
+  --bg:              #060f1a;
+  --card:            rgba(7, 19, 34, 0.88);
+  --card-border:     rgba(0, 210, 255, 0.09);
+  --card-border-h:   rgba(0, 210, 255, 0.24);
+  --accent:          #00d2ff;
+  --accent-dim:      rgba(0, 210, 255, 0.1);
+  --gold:            #f0b429;
+  --teal:            #00e5a0;
+  --danger:          #ff4560;
+  --text:            #ddeeff;
+  --text-2:          #5a7a96;
+  --text-3:          #2a3f55;
+  --shadow:          0 8px 40px rgba(0,0,0,0.55);
+  --glow:            0 0 24px rgba(0,210,255,0.18);
+  --font-head:       'Syne', sans-serif;
+  --font-body:       'DM Sans', sans-serif;
+  --font-mono:       'JetBrains Mono', monospace;
+  --bg-grid:         rgba(0,210,255,0.016);
+  --inset-shine:     rgba(255,255,255,0.04);
+  --card-before:     rgba(255,255,255,0.07);
+  --header-bg:       rgba(6,15,26,0.92);
+  --header-border:   rgba(0,210,255,0.07);
+
+  /* ── Component-level semantic tokens ── */
+  --inner-box-bg:    rgba(0,0,0,0.22);
+  --inner-box-bg-2:  rgba(6,15,26,0.9);
+  --prose-color:     #b8d0e8;
+  --divider:         rgba(0,210,255,0.07);
+  --tag-bg:          rgba(0,0,0,0.18);
+  --stat-bg:         rgba(0,150,200,0.04);
+  --select-popup-bg: #0d1f32;
+  --select-popup-text: #ddeeff;
+  --advisory-bg:     rgba(6,15,26,0.9);
+  --event-bg-start:  rgba(26,14,4,0.95);
+  --event-bg-end:    rgba(7,19,34,0.95);
+}
+
+/* ── Light mode ──────────────────────────── */
+[data-theme="light"] {
+  --bg:              #e8eef5;
+  --card:            rgba(255,255,255,0.92);
+  --card-border:     rgba(0,120,180,0.14);
+  --card-border-h:   rgba(0,120,180,0.35);
+  --accent:          #0080b8;
+  --accent-dim:      rgba(0,128,184,0.12);
+  --gold:            #b87800;
+  --teal:            #007a4a;
+  --danger:          #c8002e;
+  --text:            #08182a;
+  --text-2:          #2e4d65;
+  --text-3:          #7096b0;
+  --shadow:          0 4px 32px rgba(0,40,80,0.13), 0 1px 4px rgba(0,40,80,0.07);
+  --glow:            0 0 20px rgba(0,120,180,0.10);
+  --bg-grid:         rgba(0,100,160,0.022);
+  --inset-shine:     rgba(255,255,255,0.9);
+  --card-before:     rgba(255,255,255,0.98);
+  --header-bg:       rgba(232,238,245,0.96);
+  --header-border:   rgba(0,120,180,0.12);
+
+  /* ── Component-level semantic tokens ── */
+  --inner-box-bg:    rgba(0,80,140,0.05);
+  --inner-box-bg-2:  rgba(240,246,252,0.95);
+  --prose-color:     #1e3a52;
+  --divider:         rgba(0,120,180,0.10);
+  --tag-bg:          rgba(0,100,160,0.07);
+  --stat-bg:         rgba(0,100,160,0.06);
+  --select-popup-bg: #ffffff;
+  --select-popup-text: #08182a;
+  --advisory-bg:     rgba(240,246,252,0.95);
+  --event-bg-start:  rgba(255,248,235,0.98);
+  --event-bg-end:    rgba(245,248,252,0.98);
+}
+
+/* ── Base ────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { transition: background 0.4s; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  transition: background 0.4s, color 0.3s;
+  position: relative;
+}
+
+/* Native select option theming */
+select option {
+  background: var(--select-popup-bg);
+  color: var(--select-popup-text);
+}
+
+/* Background grid + glows */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse 70% 45% at 12% -5%,  rgba(0,210,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 40% at 88% 105%, rgba(0,229,160,0.04) 0%, transparent 60%),
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 52px 52px, 52px 52px;
+  transition: opacity 0.4s;
+}
+[data-theme="light"] .app-bg {
+  background-image:
+    radial-gradient(ellipse 70% 45% at 12% -5%,  rgba(0,140,200,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 40% at 88% 105%, rgba(0,160,120,0.04) 0%, transparent 60%),
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  opacity: 1;
+}
+
+/* ── Scrollbar ───────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(0,150,200,0.35); border-radius: 3px; }
+
+/* ── Keyframes ───────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ── Glass Card ──────────────────────────── */
+.aqi-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--inset-shine);
+  animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+  transition: border-color 0.35s, box-shadow 0.35s, background 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.aqi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-before) 50%, transparent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.aqi-card:hover {
+  border-color: var(--card-border-h);
+  box-shadow: var(--shadow), var(--glow), inset 0 1px 0 var(--inset-shine);
+}
+[data-theme="light"] .aqi-card {
+  box-shadow: var(--shadow), inset 0 1px 0 var(--inset-shine);
+}
+[data-theme="light"] .aqi-card:hover {
+  box-shadow: var(--shadow), var(--glow), inset 0 1px 0 var(--inset-shine);
+}
+
+/* ── Animation delays ────────────────────── */
+.d1 { animation-delay: 0.04s; }
+.d2 { animation-delay: 0.11s; }
+.d3 { animation-delay: 0.18s; }
+.d4 { animation-delay: 0.25s; }
+.d5 { animation-delay: 0.32s; }
+
+/* ── Section label ───────────────────────── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 3px; height: 15px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+  flex-shrink: 0;
+}
+.section-label span {
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ── Stat box ────────────────────────────── */
+.stat-box {
+  background: var(--stat-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  transition: border-color 0.3s, background 0.4s;
+}
+.stat-box:hover { border-color: var(--card-border-h); }
+.stat-box .stat-label {
+  font-family: var(--font-head);
+  font-size: 9px; font-weight: 700;
+  color: var(--text-3);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.stat-box .stat-value {
+  font-family: var(--font-mono);
+  font-size: 15px; font-weight: 700; line-height: 1;
+}
+
+/* ── Theme Toggle Switch ─────────────────── */
+.theme-toggle {
+  position: relative;
+  width: 50px; height: 27px;
+  border-radius: 14px;
+  background: var(--accent-dim);
+  border: 1px solid var(--card-border-h);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.35s, border-color 0.35s;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+.theme-toggle-icons {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  font-size: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+.theme-toggle-knob {
+  position: absolute;
+  top: 3.5px; left: 4px;
+  width: 19px; height: 19px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1),
+              background 0.35s, box-shadow 0.35s;
+}
+[data-theme="light"] .theme-toggle-knob {
+  transform: translateX(23px);
+}

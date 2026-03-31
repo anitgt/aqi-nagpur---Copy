@@ -162,23 +162,9 @@ export default function App() {
       <div className="app-bg" />
 
       {/* ── HEADER ─────────────────────────── */}
-      <header style={{
-        height: 62,
-        padding: '0 36px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        background: 'var(--header-bg)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: '1px solid var(--header-border)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        transition: 'background 0.4s, border-color 0.4s',
-      }}>
+      <header className="app-header">
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="header-logo">
           <div style={{
             width: 8, height: 8, borderRadius: '50%',
             background: 'var(--teal)',
@@ -210,12 +196,12 @@ export default function App() {
         </div>
 
         {/* Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <LiveClock />
-          <div style={{ width: 1, height: 22, background: 'var(--card-border)' }} />
+        <div className="header-controls">
+          <div className="hide-mobile"><LiveClock /></div>
+          <div className="divider-line" style={{ width: 1, height: 22, background: 'var(--card-border)' }} />
           <LocalitySelector value={station} onChange={setStation} />
           <ProfileSelect value={profile} onChange={setProfile} />
-          <div style={{ width: 1, height: 22, background: 'var(--card-border)' }} />
+          <div className="divider-line" style={{ width: 1, height: 22, background: 'var(--card-border)' }} />
           <ThemeToggle isDark={isDark} onToggle={() => setIsDark(p => !p)} />
         </div>
       </header>
@@ -225,7 +211,7 @@ export default function App() {
         {loading
           ? <LoadingScreen />
           : (
-            <main style={{ padding: '28px 36px 48px', maxWidth: 1300, margin: '0 auto' }}>
+            <main className="app-main">
 
               {context?.active && (
                 <div style={{ marginBottom: 20 }}>
@@ -234,7 +220,7 @@ export default function App() {
               )}
 
               {/* Row 1 */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 18, marginBottom: 18 }}>
+              <div className="grid-row-1">
                 <div className="aqi-card d1"><AQIGauge aqi={current?.aqi} stationName={current?.station_name} /></div>
                 <div className="aqi-card d2"><HealthAdvisory aqi={current?.aqi} profile={profile} forecast={forecast} /></div>
               </div>
@@ -250,13 +236,13 @@ export default function App() {
               </div>
 
               {/* Row 3: Pollutant + Weather */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
+              <div className="grid-row-2">
                 <div className="aqi-card d4"><PollutantPanel current={current} /></div>
                 <div className="aqi-card d5"><WeatherPanel current={current} /></div>
               </div>
 
               {/* Row 4: Why + RRS */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+              <div className="grid-row-3">
                 <div className="aqi-card d4"><WhyBadToday pollutant={current?.dominant_pollutant} current={current} /></div>
                 <div className="aqi-card d5"><RRSCard rrs={rrs} /></div>
               </div>
